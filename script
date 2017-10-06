@@ -1,0 +1,230 @@
+#! /bin/bash
+
+cyanclair='\e[1;36m'
+rouge='\033[31m '
+neutre='\033[0m'
+
+#1ère question :
+echo -e "${rouge} As-tu la Parkinson ? ${neutre}";
+premq="";
+select response in 'Oui' 'Non' ;do
+    case $response in
+  Oui ) option1='stabilisante';break;;
+  Non ) option1='fixe';break;;
+    esac
+done
+
+#2ème question :
+echo -e "${rouge}Es-tu gauché, droitié ou ambidextre ? ${neutre}";
+deuxq="";
+select response2 in 'Droitié' 'Gauché' 'Ambidextre';do
+    case $response2 in
+  Droitié )  option2='pour droitié';break;;
+  Gauché ) option2='pour gauché';break;;
+  Ambidextre ) option2='pour ambidextre';break;;
+    esac
+done
+
+#3ème question :
+echo -e "${rouge}Es-tu adroit ? ${neutre}"
+troisq="";
+select response3 in 'Oui' 'Non' ;do
+    case $response3 in
+  Oui ) option3='fine';break;;
+  Non ) option3='grosse';break;;
+    esac
+done
+
+#4ème question :
+echo -e "${rouge}Ton avant-bras fait-il plus de 30 cm : ${neutre}";
+quatreq="";
+select response4 in 'Oui' 'Non';do
+    case $response4 in
+  Oui ) option4='Grande';break;;
+  Non ) option4='Courte';break;;
+    esac
+done
+
+#5ème question :
+echo -e "${rouge}Tu es plutôt : ${neutre}"
+cinqq="";
+select response5 in 'étourdi' 'appliqué' ;do
+    case $response5 in
+  étourdi ) option5='bracelet attaché au poignet';break;;
+  appliqué  ) option5='';break;;
+    esac
+done
+
+#6ème question:
+echo -e "${rouge}Tu as trois caractéristiques pour ta baguette, tu préfères qu elle soit : ${neutre}"
+sixq="";
+select response6 in 'esthétique' 'confortable' 'puissante';do
+    case $response6 in
+  esthétique ) option6='esthétique';break;;
+  confortable ) option6='confortable';break;;
+  puissante ) option6='puissante';break;;
+    esac
+done
+
+#7ème question
+if [ $option6 == "esthétique" ]
+  then echo -e "${rouge}Il te reste deux caractéristique à choisir, laquelle des deux préfères-tu ? ${neutre}"
+      septq="";
+      select response7 in 'confortable' 'puissante';do
+          case $response7 in
+        confortable ) option7='confortable';break;;
+        puissante ) option7='puissante';break;;
+          esac
+        done
+          if [ $option7 == 'confortable' ]
+              then
+                  option10='puissante';
+
+          elif [ $option7 == 'puissante' ];
+              then
+                option10='confortable'
+
+          fi
+
+
+  elif [ $option6 == "confortable" ]
+  then
+    echo -e "${rouge}Il te reste deux caractéristique à choisir, laquelle des deux préfères-tu ? ${neutre}";
+    septq="";
+    select response7 in "esthétique" 'puissante';do
+        case $response7 in
+      esthétique ) option7="esthétique";break;;
+      puissante ) option7='puissante';break;;
+        esac
+      done
+        if [ $option7 == "esthétique" ]
+          then
+            option10='puissante';
+        elif [ $option7 == 'puissante' ];
+          then
+            option10='esthétique'
+        fi
+
+
+  else
+    echo -e "${rouge}Il te reste deux caractéristique à choisir, laquelle des deux préfères-tu ?${neutre}";
+    septq="";
+    select response7 in 'esthétique' 'confortable';do
+        case $response7 in
+      esthétique  ) option7='esthétique';break;;
+      confortable ) option7='confortable';break;;
+
+        esac
+    done
+
+    if [ $option7 == "esthétique" ];
+      then
+        option10='confortable';
+    elif [ $option7 == 'confortable' ];
+      then
+        option10='esthétique';
+    fi
+fi
+
+
+#8ème question :
+echo -e "${rouge}Tes intentions sont : ${neutre}";
+huitq="";
+select response8 in 'Bonnes' 'Mauvaises' ;do
+    case $response8 in
+        Bonnes ) option8='légal';break;;
+        Mauvaises ) option8='illégal';break;;
+    esac
+  done
+
+#9ème question :
+echo -e "${rouge}Consommez vous régulièrement de l alcool ?${neutre}";
+neufq="";
+select response9 in 'Oui' 'Non' ;do
+  case $response9 in
+    Oui ) option9="";break;;
+    Non ) option9="";break;;
+  esac
+done
+#10ème question :
+if [ "$response9" == "Oui" ]
+  then
+  echo -e "${rouge}Êtes-vous aveugle ?${neutre}"
+  dixq="";
+    select response10 in 'Oui' 'Non';do
+      case $response10 in
+        Oui ) option9='Capteur sensitif afin de prendre la baguette dans le bon sens';break;;
+        Non ) option9='Flèche désignant le sens de la baguette';break;;
+      esac
+  done
+elif [ "$response9" == "Non" ]
+  then
+  echo -e "${rouge}Consommez-vous de la drogue régulièrement ? ${neutre}"
+    select responsive10 in 'Oui' 'Non' ;do
+      case $responsive10 in
+        Oui ) option9="";break;;
+        Non ) option9="";break;;
+      esac
+    done
+fi
+
+#11ème question :
+
+if [ "$responsive10" == "Oui" ]
+  then
+    echo -e "${rouge}Êtes-vous aveugle ?${neutre}"
+    select responsive11 in 'Oui' 'Non';do
+      case $responsive11 in
+        Oui ) option9="capteur sensitif afin de prendre la baguette dans le bon sens";break;;
+        Non ) option9="";break;;
+      esac
+  done
+fi
+
+echo 'Voici votre baguette idéal, elle contient les options suivantes : '
+echo '-' $option1
+echo '-' $option2
+echo '-' $option3
+echo '-' $option4
+if [ "$option5" != '' ]
+then
+  echo '-' $option5;
+fi
+if [ "$option8" != '' ];
+then
+  echo '-' $option8;
+fi
+if [ "$option9" != '' ];
+then
+  echo '-' $option9;
+fi
+
+echo '-' $otpion8
+echo '-' $option9
+echo 'Ses principales caractérisitques sont'
+echo '1 -' $option6
+echo '2 -' $option7
+echo '3 -' $option10
+
+
+cat <<"EOF"
+
+        _            _.,----,
+__  _.-._ / '-.        -  ,._  \)
+|  `-)_   '-.   \       / < _ )/" }
+/__    '-.   \   '-, ___(c-(6)=(6)
+, `'.    `._ '.  _,'   >\    "  )
+:;;,,'-._   '---' (  ( "/`. -='/
+;:;;:;;,  '..__    ,`-.`)'- '--'
+;';:;;;;;'-._ /'._|   Y/   _/' \
+  '''"._ F    |  _/ _.'._   `\
+         L    \   \/     '._  \
+  .-,-,_ |     `.  `'---,  \_ _|
+  //    'L    /  \,   ("--',=`)7
+ | `._       : _,  \  /'`-._L,_'-._
+ '--' '-.\__/ _L   .`'         './/
+             [ (  /
+              ) `{
+               \__)
+
+EOF
